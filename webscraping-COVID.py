@@ -5,9 +5,11 @@
 from urllib.request import urlopen, Request
 from bs4 import BeautifulSoup
 
-
-##############FOR MACS THAT HAVE ERRORS LOOK HERE################
+##############FOR MACS THAT HAVE CERTIFICATE ERRORS LOOK HERE################
 ## https://timonweb.com/tutorials/fixing-certificate_verify_failed-error-when-trying-requests_html-out-on-mac/
+
+##############FOR PCs THAT HAVE CERTIFICATE ERRORS LOOK HERE################
+## https://support.chainstack.com/hc/en-us/articles/9117198436249-Common-SSL-Issues-on-Python-and-How-to-Fix-it
 
 ############## ALTERNATIVELY IF PASSWORD IS AN ISSUE FOR MAC USERS ########################
 ##  > cd "/Applications/Python 3.6/"
