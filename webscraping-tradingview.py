@@ -12,14 +12,17 @@ from bs4 import BeautifulSoup
 ##  > sudo "./Install Certificates.command"
 
 
-url = 'https://www.tradingview.com/markets/stocks-usa/market-movers-gainers/'
+url = 'https://www.webull.com/quote/us/gainers/pre'
 headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.3'}
 
 		
+req = Request(url, headers=headers)
 
+webpage = urlopen(req).read()
 
+soup = BeautifulSoup(webpage, 'html.parser')
 
-
+print(soup.title.text)
 
 
 #SOME USEFUL FUNCTIONS IN BEAUTIFULSOUP
@@ -32,4 +35,22 @@ headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML
 #Text: nameList = Objfind(text="the prince")
 #Limit = find with limit of 1
 #keyword: allText = Obj.find(id="title",class="text")
+
+stock_data = soup.findAll('div',attrs={"class": "table-cell"})
+
+print(stock_data[22])
+
+for row in range(0,55,11):
+    symboname = stock_data[row+1].text.replace('\n','')
+    percentchange = stock_data[row+3].text.replace('\n','')
+    lastprice = float(stock_data[row+4].text.replace('\n',''))
+    percentcalc = float(percentchange.strip('%').strip('+'))
+    currentprice = ((lastprice) * ((percentcalc)/100))+(lastprice)
+
+    print(f"Name of stock: {symboname}")
+    print(f"% Change in 1 Day: {percentchange}")
+    print(f"Last Price: ${lastprice:.2f}")
+    print(f"Current Price: ${currentprice:,.2f}")
+    print()
+    input()
 
